@@ -17,7 +17,11 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_HOST, CONF_MAC, CONF_TIMEOUT, CONF_TYPE
 from homeassistant.data_entry_flow import AbortFlow, FlowResult
 from homeassistant.helpers import config_validation as cv
-from homeassistant.helpers.service_info.dhcp import DhcpServiceInfo
+
+try:
+    from homeassistant.helpers.service_info.dhcp import DhcpServiceInfo
+except ImportError:
+    from homeassistant.components.dhcp import DhcpServiceInfo
 
 from .const import DEFAULT_TIMEOUT, DEVICE_TYPES, DOMAIN
 
