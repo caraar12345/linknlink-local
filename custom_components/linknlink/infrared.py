@@ -29,11 +29,17 @@ def _timings_to_packet(timings: list[int]) -> bytes:
     Positive values are pulse (high) durations; negative are space (low).
     Uses the same 32.84 µs tick resolution as Broadlink-compatible devices.
     """
+    if not timings:
+        raise ValueError("IR timings cannot be empty")
+
     result = bytearray(4)
     result[0] = 0x26
 
     for timing in timings:
-        div, mod = divmod(int(abs(timing) // _TICK_US), 256)
+        ticks = max(1, int(abs(timing) // _TICK_US))
+        if ticks > 0xFFFF:
+            raise ValueError(f"IR timing out of range: {timing}us")
+        div, mod = divmod(ticks, 256)
         if div:
             result.append(0)
             result.append(div)
@@ -69,12 +75,12 @@ class LinknLinkInfraredEntity(LinknLinkEntity, InfraredEntity):
 
     async def async_send_command(self, command: InfraredCommand) -> None:
         """Send an IR command via the LinknLink device."""
-        packet = _timings_to_packet(command.get_raw_timings())
         try:
+            packet = _timings_to_packet(command.get_raw_timings())
             await self.coordinator.async_request(
                 self.coordinator.api.send_data, packet
             )
-        except (LinknLinkException, OSError) as err:
+        except (LinknLinkException, OSError, ValueError) as err:
             raise HomeAssistantError(
                 translation_domain=DOMAIN,
                 translation_key="send_command_failed",
