@@ -1,4 +1,16 @@
 {
+  "entity": {
+    "infrared": {
+      "infrared_emitter": {
+        "name": "Infrared emitter"
+      }
+    }
+  },
+  "exceptions": {
+    "send_command_failed": {
+      "message": "Failed to send command: {error}"
+    }
+  },
   "config": {
     "flow_title": "{name} ({model} at {host})",
     "step": {

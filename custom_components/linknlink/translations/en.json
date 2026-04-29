@@ -44,7 +44,17 @@
             }
         }
     },
+    "exceptions": {
+        "send_command_failed": {
+            "message": "Failed to send command: {error}"
+        }
+    },
     "entity": {
+        "infrared": {
+            "infrared_emitter": {
+                "name": "Infrared emitter"
+            }
+        },
         "sensor": {
             "light": {
                 "name": "Illuminance"

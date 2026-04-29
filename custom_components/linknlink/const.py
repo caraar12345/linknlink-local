@@ -8,6 +8,7 @@ DOMAINS_AND_TYPES = {
     # Platform.SENSOR: {"EHUB", "ETHS", "EREMOTE"},
     # Platform.BINARY_SENSOR: {"EHUB", "EMOTION", "EREMOTE"},
     # Platform.BUTTON: {"EREMOTE"},
+    Platform.INFRARED: {"EHUB", "EREMOTE"},
     Platform.REMOTE: {"EHUB", "EREMOTE"},
     Platform.SENSOR: {"EHUB", "ETHS"},
     Platform.BINARY_SENSOR: {"EHUB", "EMOTION"},
