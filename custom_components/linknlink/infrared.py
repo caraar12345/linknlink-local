@@ -65,7 +65,6 @@ async def async_setup_entry(
 class LinknLinkInfraredEntity(LinknLinkEntity, InfraredEntity):
     """LinknLink infrared transmitter entity."""
 
-    _attr_has_entity_name = True
     _attr_translation_key = "infrared_emitter"
 
     def __init__(self, coordinator: LinknLinkCoordinator) -> None:
